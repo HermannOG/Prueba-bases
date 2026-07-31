@@ -1,3 +1,4 @@
+<?php require_once __DIR__ . '/auth.php'; ?>
 <header class="site-nav">
     <nav class="navbar navbar-expand-lg">
         <div class="container">
@@ -26,10 +27,18 @@
                     <li class="nav-item"><a class="nav-link" href="evaluacion-riesgos.php">Evaluación de riesgos</a></li>
                 </ul>
 
-                <a href="index.php#contacto" class="btn btn-cta">
-                    Solicitar diagnóstico
-                    <i class="fa-solid fa-arrow-right ms-2"></i>
-                </a>
+                <?php if (usuarioAutenticado()): ?>
+                    <div class="d-flex align-items-center gap-3">
+                        <span style="color: var(--text-muted); font-size: 0.9rem;">
+                            <i class="fa-solid fa-user me-1"></i>
+                            <?php echo htmlspecialchars($_SESSION['nombre_completo']); ?>
+                        </span>
+                        <a href="logout.php" class="btn btn-ghost">Cerrar sesión</a>
+                    </div>
+                <?php else: ?>
+                    <a href="login.php" class="btn btn-ghost me-2">Iniciar sesión</a>
+                    <a href="registro.php" class="btn btn-cta">Crear cuenta</a>
+                <?php endif; ?>
             </div>
 
         </div>
